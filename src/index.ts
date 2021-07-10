@@ -3,9 +3,10 @@ process.env["NODE_CONFIG_DIR"] = "./config";
 import config from "config";
 import cors from "cors";
 import helmet from "helmet";
+import createHttpError from "http-errors";
 import mongoose from "mongoose";
 
-// Check environment vars 
+// Check environment vars
 if (!config.get("jwtPrivateKey")) {
   console.log("Fatal Error jwtPrivateKey is not defined.");
 }
@@ -15,7 +16,10 @@ const app = express();
 
 // Database connection
 mongoose
-  .connect(config.get("db.host"), { useNewUrlParser: true })
+  .connect(config.get("db.host"), {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("CONNECTED TO DATABASE");
   })
@@ -25,11 +29,20 @@ mongoose
     process.exit(1);
   });
 
+//Use standard web stuff
+app.use(helmet);
+if (process.env.NODE_ENV == "development") {
+  app.use(cors());
+}
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
+// Routes
+
+
+
+
+//Error handling
+app.use((req, res, next) => {
+  next(createHttpError(404));
 });
 
-app.listen(3000, () => {
-  console.log("chronicler is listening on port 3000");
-});
+export default app;
