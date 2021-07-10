@@ -1,0 +1,43 @@
+{
+  "name": "chronicler",
+  "version": "1.0.0",
+  "description": "Backend application that serves as a hub for diet, mood and other life data points. ",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -fr ./bin",
+    "start": "npm run clean && npm run build && npm run prodstart",
+    "prodstart": "node ./bin/index.js",
+    "dev": "nodemon --config nodemon.json src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmozden/chronicler.git"
+  },
+  "author": "Travis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tmozden/chronicler/issues"
+  },
+  "homepage": "https://github.com/tmozden/chronicler#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/config": "0.0.39",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.4",
+    "@types/node": "^16.3.1",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  }
+}

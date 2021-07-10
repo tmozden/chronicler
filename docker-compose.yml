@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  chronicler:
+    build:
+      context: .
+    image: chronicler
+    ports:
+      - "127.0.0.1:8080:8080"
+    env_file:
+      - ./environment/.env
+    environment:
+      - SERVER_PORT=8080
+      - NODE_ENV=development
+      - DEBUG=app:std
+    volumes:
+      - ./:/app
+      - /app/node_modules/
+    command: npm run dev
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.4.2
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+
+volumes:
+  mongodb:
+  mongodb_config:
